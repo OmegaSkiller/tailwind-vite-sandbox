@@ -1,2 +1,71 @@
 @import "tailwindcss";
+
 @plugin "daisyui";
+
+@layer utilities {
+    .card-wrapper {
+        @apply relative overflow-hidden rounded-[0.5rem] bg-white;
+        transition: all 0.3s ease;
+    }
+
+    .card-wrapper:hover {
+        @apply animate-glow-spin --animate-;
+    }
+
+    .card-with-ani-border {
+        @apply relative z-[1] bg-white;
+    }
+}
+
+@theme {
+    --animate-glow-spin: glow-spin 5s linear infinite;
+    --blur-custom: 2rem;
+    --spread-custom: -0.5rem;
+    @keyframes glow-spin {
+        0% {
+            box-shadow:
+                15px 0 var(--blur-custom) var(--spread-custom) #34bc78,
+                0 -15px var(--blur-custom) rgba(52, 188, 120, 0.1);
+        }
+        12.5% {
+            box-shadow:
+                10px 10px var(--blur-custom) var(--spread-custom) #34bc78,
+                10px -10px var(--blur-custom) rgba(52, 188, 120, 0.1);
+        }
+        25% {
+            box-shadow:
+                0 15px var(--blur-custom) var(--spread-custom) #34bc78,
+                15px 0 var(--blur-custom) rgba(52, 188, 120, 0.1);
+        }
+        37.5% {
+            box-shadow:
+                -10px 10px var(--blur-custom) var(--spread-custom) #34bc78,
+                10px 10px var(--blur-custom) rgba(52, 188, 120, 0.1);
+        }
+        50% {
+            box-shadow:
+                -15px 0 var(--blur-custom) var(--spread-custom) #34bc78,
+                0 15px var(--blur-custom) rgba(52, 188, 120, 0.1);
+        }
+        62.5% {
+            box-shadow:
+                -10px -10px var(--blur-custom) var(--spread-custom) #34bc78,
+                -10px 10px var(--blur-custom) rgba(52, 188, 120, 0.1);
+        }
+        75% {
+            box-shadow:
+                0 -15px var(--blur-custom) var(--spread-custom) #34bc78,
+                -15px 0 var(--blur-custom) rgba(52, 188, 120, 0.1);
+        }
+        87.5% {
+            box-shadow:
+                10px -10px var(--blur-custom) var(--spread-custom) #34bc78,
+                -10px -10px var(--blur-custom) rgba(52, 188, 120, 0.1);
+        }
+        100% {
+            box-shadow:
+                15px 0 var(--blur-custom) var(--spread-custom) #34bc78,
+                0 -15px var(--blur-custom) rgba(52, 188, 120, 0.1);
+        }
+    }
+}
