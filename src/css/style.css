@@ -2,70 +2,57 @@
 
 @plugin "daisyui";
 
+@property --angle-animation {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
 @layer utilities {
-    .card-wrapper {
-        @apply relative overflow-hidden rounded-[0.5rem] bg-white;
+    --angle-animation: 0deg;
+    .animate-card {
         transition: all 0.3s ease;
     }
 
-    .card-wrapper:hover {
-        @apply animate-glow-spin --animate-;
+    .animate-card:hover::after,
+    .animate-card:hover::before {
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-image: conic-gradient(
+            from var(--angle-animation),
+            rgba(255, 255, 255, 0.6),
+            rgba(52, 188, 120, 1),
+            rgba(52, 188, 120, 0.8),
+            rgba(52, 188, 120, 0.6),
+            rgba(255, 255, 255, 0.6)
+        );
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        z-index: -1;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        animation: glow-spin 5s linear infinite;
+        /*@apply absolute left-[50%] top-[50%] z-[-1] h-[100%] w-[100%] rounded-[0.5rem] p-[10px] opacity-[0.5] content-[''];*/
     }
 
-    .card-with-ani-border {
-        @apply relative z-[1] bg-white;
+    .animate-card::before {
+        filter: blur(2rem);
+        opacity: 1;
     }
 }
 
 @theme {
-    --animate-glow-spin: glow-spin 5s linear infinite;
-    --blur-custom: 2rem;
-    --spread-custom: -0.5rem;
     @keyframes glow-spin {
-        0% {
-            box-shadow:
-                15px 0 var(--blur-custom) var(--spread-custom) #34bc78,
-                0 -15px var(--blur-custom) rgba(52, 188, 120, 0.1);
+        from {
+            --angle-animation: 0deg;
         }
-        12.5% {
-            box-shadow:
-                10px 10px var(--blur-custom) var(--spread-custom) #34bc78,
-                10px -10px var(--blur-custom) rgba(52, 188, 120, 0.1);
-        }
-        25% {
-            box-shadow:
-                0 15px var(--blur-custom) var(--spread-custom) #34bc78,
-                15px 0 var(--blur-custom) rgba(52, 188, 120, 0.1);
-        }
-        37.5% {
-            box-shadow:
-                -10px 10px var(--blur-custom) var(--spread-custom) #34bc78,
-                10px 10px var(--blur-custom) rgba(52, 188, 120, 0.1);
-        }
-        50% {
-            box-shadow:
-                -15px 0 var(--blur-custom) var(--spread-custom) #34bc78,
-                0 15px var(--blur-custom) rgba(52, 188, 120, 0.1);
-        }
-        62.5% {
-            box-shadow:
-                -10px -10px var(--blur-custom) var(--spread-custom) #34bc78,
-                -10px 10px var(--blur-custom) rgba(52, 188, 120, 0.1);
-        }
-        75% {
-            box-shadow:
-                0 -15px var(--blur-custom) var(--spread-custom) #34bc78,
-                -15px 0 var(--blur-custom) rgba(52, 188, 120, 0.1);
-        }
-        87.5% {
-            box-shadow:
-                10px -10px var(--blur-custom) var(--spread-custom) #34bc78,
-                -10px -10px var(--blur-custom) rgba(52, 188, 120, 0.1);
-        }
-        100% {
-            box-shadow:
-                15px 0 var(--blur-custom) var(--spread-custom) #34bc78,
-                0 -15px var(--blur-custom) rgba(52, 188, 120, 0.1);
+        to {
+            --angle-animation: 360deg;
         }
     }
+
+    --animate-glow-spin: glow-spin 0.5s linear infinite;
 }
